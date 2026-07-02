@@ -19,7 +19,6 @@
       <span class="logo-tagline">flyingfishcapital.com.pg</span>
     </div>
   </a>
-
   <ul class="nav-links">
     <li><a href="#about">Our People</a></li>
     <li><a href="#how">How It Works</a></li>
@@ -40,41 +39,27 @@
       <path d="M0 40 Q360 0 720 40 Q1080 80 1440 40 L1440 80 L0 80 Z" fill="#f7f8fa"/>
     </svg>
   </div>
-
   <svg class="hero-fish" viewBox="0 0 500 350" width="500" height="350" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M50 175 Q150 60 280 120 Q360 155 430 120 L420 175 L430 230 Q360 195 280 230 Q150 290 50 175Z" fill="white" stroke="white" stroke-width="1"/>
     <path d="M430 120 L460 80 L440 175 L460 270 L430 230Z" fill="white" stroke="white"/>
     <circle cx="120" cy="165" r="12" fill="#060e1c"/>
     <circle cx="122" cy="163" r="4" fill="white"/>
   </svg>
-
   <div class="hero-content">
     <div class="hero-badge">Papua New Guinea's Trusted Lender</div>
-    <h1>
-      Financial Solutions
-      <span>Built for PNG</span>
-    </h1>
-    <p>Flying Fish Capital delivers fast, fair, and flexible lending to individuals and businesses across Port Moresby, Lae, and Mount Hagen.</p>
+    <h1>Financial Solutions<span>Built for PNG</span></h1>
+    <p>Flying Fish Capital delivers fast, fair, and flexible lending to individuals across Port Moresby, Lae, Mount Hagen, and Goroka.</p>
     <div class="hero-actions">
-      <a href="#products" class="btn-primary">
+      <a href="apply.html" class="btn-primary">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2l6 6-6 6M2 8h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        View Loan Products
+        Apply Now
       </a>
       <a href="#branches" class="btn-outline">Find a Branch</a>
     </div>
     <div class="hero-stats">
-      <div class="stat">
-        <span class="stat-num">3</span>
-        <span class="stat-label">Branches</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">24h</span>
-        <span class="stat-label">Approval</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">10K+</span>
-        <span class="stat-label">Clients</span>
-      </div>
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Branches</span></div>
+      <div class="stat"><span class="stat-num">24h</span><span class="stat-label">Approval</span></div>
+      <div class="stat"><span class="stat-num">10K+</span><span class="stat-label">Clients</span></div>
     </div>
   </div>
 </section>
@@ -83,172 +68,55 @@
 <section class="gallery-section" id="about">
 <style>
   .gallery-section { background: var(--off-white); padding: 96px 5%; }
+  .gallery-top { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:48px; flex-wrap:wrap; gap:20px; }
+  .gallery-filters { display:flex; gap:8px; flex-wrap:wrap; }
+  .gf-btn { padding:8px 20px; border-radius:100px; border:1.5px solid rgba(0,0,0,0.1); background:#fff; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:#6a7a8e; cursor:pointer; transition:all .2s; }
+  .gf-btn:hover { border-color:var(--teal); color:var(--teal); }
+  .gf-btn.active { background:var(--teal); border-color:var(--teal); color:var(--navy); font-weight:600; }
 
-  .gallery-top {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    margin-bottom: 48px; flex-wrap: wrap; gap: 20px;
-  }
+  .gallery-layout { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:360px 260px; gap:14px; }
 
-  /* ── FILTER TABS ── */
-  .gallery-filters {
-    display: flex; gap: 8px; flex-wrap: wrap;
-  }
-  .gf-btn {
-    padding: 8px 20px; border-radius: 100px;
-    border: 1.5px solid rgba(0,0,0,0.1);
-    background: #fff; font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 500; color: #6a7a8e;
-    cursor: pointer; transition: all .2s;
-  }
-  .gf-btn:hover { border-color: var(--teal); color: var(--teal); }
-  .gf-btn.active {
-    background: var(--teal); border-color: var(--teal);
-    color: var(--navy); font-weight: 600;
-  }
+  .gallery-featured { grid-row:1/3; border-radius:20px; overflow:hidden; position:relative; cursor:pointer; background:#1a2a3e; }
+  .gallery-thumb { border-radius:14px; overflow:hidden; position:relative; cursor:pointer; background:#1a2a3e; }
 
-  /* ── MAIN FEATURED + GRID ── */
-  .gallery-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 360px 260px;
-    gap: 14px;
-  }
+  .gallery-featured img, .gallery-thumb img { width:100%; height:100%; object-fit:cover; object-position:top center; transition:transform .4s ease; display:block; }
+  .gallery-featured:hover img, .gallery-thumb:hover img { transform:scale(1.04); }
 
-  .gallery-featured {
-    grid-row: 1 / 3;
-    border-radius: 20px; overflow: hidden;
-    position: relative; cursor: pointer;
-    background: #1a2a3e;
-  }
+  .gallery-placeholder { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:linear-gradient(135deg,#1a2a3e 0%,#0f1923 100%); }
+  .gallery-placeholder svg { opacity:0.2; }
+  .gallery-placeholder span { font-size:12px; color:rgba(255,255,255,0.2); letter-spacing:0.06em; text-transform:uppercase; }
 
-  .gallery-thumb {
-    border-radius: 14px; overflow: hidden;
-    position: relative; cursor: pointer;
-    background: #1a2a3e;
-  }
+  .gallery-caption { position:absolute; bottom:0; left:0; right:0; padding:40px 20px 18px; background:linear-gradient(to top, rgba(10,22,40,0.95) 0%, transparent 100%); transform:translateY(4px); opacity:0; transition:all .25s; }
+  .gallery-featured:hover .gallery-caption, .gallery-thumb:hover .gallery-caption { opacity:1; transform:translateY(0); }
+  .gallery-caption-name { font-size:15px; font-weight:600; color:#fff; display:block; margin-bottom:3px; }
+  .gallery-caption-role { font-size:12px; color:var(--teal); display:block; }
+  .gallery-caption-branch { font-size:11px; color:rgba(255,255,255,0.45); display:block; margin-top:2px; }
 
-  .gallery-featured img,
-  .gallery-thumb img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform .4s ease, opacity .3s;
-    display: block;
-  }
+  .gallery-tag { position:absolute; top:14px; left:14px; background:rgba(13,184,164,0.15); border:1px solid rgba(13,184,164,0.3); border-radius:100px; padding:4px 12px; font-size:11px; font-weight:500; color:var(--teal); letter-spacing:0.06em; text-transform:uppercase; backdrop-filter:blur(6px); }
 
-  .gallery-featured:hover img,
-  .gallery-thumb:hover img { transform: scale(1.04); }
+  /* LIGHTBOX */
+  .lightbox { display:none; position:fixed; inset:0; z-index:200; background:rgba(6,14,28,0.96); align-items:center; justify-content:center; padding:24px; }
+  .lightbox.open { display:flex; }
+  .lightbox-inner { position:relative; max-width:860px; width:100%; animation:lbIn .2s ease; }
+  @keyframes lbIn { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
+  .lightbox-img { width:100%; max-height:76vh; object-fit:contain; border-radius:16px; display:block; }
+  .lightbox-info { margin-top:18px; text-align:center; }
+  .lightbox-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:600; color:#fff; }
+  .lightbox-role { font-size:14px; color:var(--teal); margin-top:4px; }
+  .lightbox-branch { font-size:13px; color:rgba(255,255,255,0.4); margin-top:2px; }
+  .lightbox-close { position:absolute; top:-16px; right:-16px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:#fff; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+  .lightbox-close:hover { background:rgba(255,255,255,0.2); }
+  .lightbox-nav { position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); color:#fff; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+  .lightbox-nav:hover { background:rgba(13,184,164,0.25); }
+  .lightbox-prev { left:-60px; }
+  .lightbox-next { right:-60px; }
 
-  /* placeholder when no image uploaded yet */
-  .gallery-placeholder {
-    width: 100%; height: 100%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 10px; background: linear-gradient(135deg, #1a2a3e 0%, #0f1923 100%);
-  }
-  .gallery-placeholder svg { opacity: 0.2; }
-  .gallery-placeholder span {
-    font-size: 12px; color: rgba(255,255,255,0.2);
-    letter-spacing: 0.06em; text-transform: uppercase;
-  }
-
-  /* overlay caption */
-  .gallery-caption {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 20px 20px 16px;
-    background: linear-gradient(to top, rgba(10,22,40,0.92), transparent);
-    transform: translateY(6px);
-    opacity: 0; transition: all .25s;
-  }
-  .gallery-featured:hover .gallery-caption,
-  .gallery-thumb:hover .gallery-caption { opacity: 1; transform: translateY(0); }
-
-  .gallery-caption-name {
-    font-size: 15px; font-weight: 600; color: #fff;
-    display: block; margin-bottom: 3px;
-  }
-  .gallery-caption-role {
-    font-size: 12px; color: var(--teal);
-    display: block;
-  }
-  .gallery-caption-branch {
-    font-size: 11px; color: rgba(255,255,255,0.45);
-    display: block; margin-top: 2px;
-  }
-
-  /* tag badges on photos */
-  .gallery-tag {
-    position: absolute; top: 14px; left: 14px;
-    background: rgba(13,184,164,0.15);
-    border: 1px solid rgba(13,184,164,0.3);
-    border-radius: 100px; padding: 4px 12px;
-    font-size: 11px; font-weight: 500; color: var(--teal);
-    letter-spacing: 0.06em; text-transform: uppercase;
-    backdrop-filter: blur(6px);
-  }
-
-  /* ── LIGHTBOX ── */
-  .lightbox {
-    display: none; position: fixed; inset: 0; z-index: 200;
-    background: rgba(6,14,28,0.95);
-    align-items: center; justify-content: center;
-    padding: 24px;
-  }
-  .lightbox.open { display: flex; }
-  .lightbox-inner {
-    position: relative; max-width: 900px; width: 100%;
-    animation: lbIn .2s ease;
-  }
-  @keyframes lbIn { from { opacity:0; transform:scale(.96); } to { opacity:1; transform:scale(1); } }
-  .lightbox-img {
-    width: 100%; max-height: 75vh;
-    object-fit: contain; border-radius: 16px;
-    display: block;
-  }
-  .lightbox-info {
-    margin-top: 16px; text-align: center;
-  }
-  .lightbox-name { font-family: 'Playfair Display',serif; font-size: 22px; font-weight: 600; color: #fff; }
-  .lightbox-role { font-size: 14px; color: var(--teal); margin-top: 4px; }
-  .lightbox-branch { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 2px; }
-  .lightbox-close {
-    position: absolute; top: -14px; right: -14px;
-    width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
-    color: #fff; font-size: 18px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .2s;
-  }
-  .lightbox-close:hover { background: rgba(255,255,255,0.2); }
-  .lightbox-nav {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-    color: #fff; font-size: 18px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .2s;
-  }
-  .lightbox-nav:hover { background: rgba(13,184,164,0.25); }
-  .lightbox-prev { left: -56px; }
-  .lightbox-next { right: -56px; }
-
-  /* ── ADD PHOTO HINT ── */
-  .gallery-add-hint {
-    margin-top: 20px;
-    background: #fff; border-radius: 12px;
-    border: 1.5px dashed rgba(13,184,164,0.3);
-    padding: 16px 20px;
-    display: flex; align-items: center; gap: 14px;
-  }
-  .gallery-add-hint svg { color: var(--teal); flex-shrink: 0; }
-  .gallery-add-hint p { font-size: 13px; color: #6a7a8e; line-height: 1.55; margin: 0; }
-  .gallery-add-hint strong { color: var(--navy); }
-
-  @media(max-width:700px){
+  @media(max-width:800px){
     .gallery-layout { grid-template-columns:1fr; grid-template-rows:auto; }
-    .gallery-featured { grid-row:auto; height:280px; }
-    .gallery-thumb { height:200px; }
-    .lightbox-prev { left:-10px; }
-    .lightbox-next { right:-10px; }
+    .gallery-featured { grid-row:auto; height:300px; }
+    .gallery-thumb { height:220px; }
+    .lightbox-prev { left:-8px; }
+    .lightbox-next { right:-8px; }
   }
 </style>
 
@@ -258,26 +126,21 @@
       <h2 class="section-title" style="margin-bottom:0">The Team Behind<br>Flying Fish Capital</h2>
     </div>
     <div class="gallery-filters">
-      <button class="gf-btn active" onclick="filterGallery('all', this)">All</button>
-      <button class="gf-btn" onclick="filterGallery('staff', this)">Staff</button>
-      <button class="gf-btn" onclick="filterGallery('office', this)">Office</button>
-      <button class="gf-btn" onclick="filterGallery('community', this)">Community</button>
+      <button class="gf-btn active" onclick="filterGallery('all',this)">All</button>
+      <button class="gf-btn" onclick="filterGallery('staff',this)">Staff</button>
+      <button class="gf-btn" onclick="filterGallery('office',this)">Office</button>
+      <button class="gf-btn" onclick="filterGallery('community',this)">Community</button>
     </div>
   </div>
 
+  <!-- TOP ROW: large left + 2 stacked right -->
   <div class="gallery-layout" id="galleryGrid">
 
-    <!-- FEATURED (large left) -->
-    <div class="gallery-featured" data-category="staff"
-         onclick="openLightbox(0)"
+    <!-- FEATURED LEFT — Albinus -->
+    <div class="gallery-featured" data-category="staff" onclick="openLightbox(0)"
          data-name="Albinus Balaguan" data-role="Sales & Operations Manager" data-branch="Port Moresby HQ">
-      <div class="gallery-placeholder">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <img src="images/team/ab.jpg" alt="Albinus Balaguan">
-        <span style="font-size:10px;color:rgba(255,255,255,0.12)">images/team/jad.jpg</span>
-      </div>
-      <!-- Replace placeholder with: <img src="images/team/jad.jpg" alt="Jad Pilapil"> -->
-      <span class="gallery-tag">Sales & Operations Manager</span>
+      <img src="images/team/ab.jpg" alt="Albinus Balaguan">
+      <span class="gallery-tag">Sales & Operations</span>
       <div class="gallery-caption">
         <span class="gallery-caption-name">Albinus Balaguan</span>
         <span class="gallery-caption-role">Sales & Operations Manager</span>
@@ -285,55 +148,29 @@
       </div>
     </div>
 
-    <!-- TOP RIGHT -->
-    <div class="gallery-thumb" data-category="staff"
-         onclick="openLightbox(1)"
-         data-name="Branch Team" data-role="Loan Officers" data-branch="Port Moresby">
-      <div class="gallery-placeholder">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span>Upload photo here</span>
-        <span style="font-size:10px;color:rgba(255,255,255,0.12)">images/team/pom-team.jpg</span>
-      </div>
-      <!-- Replace placeholder with: <img src="images/team/pom-team.jpg" alt="POM Team"> -->
-      <span class="gallery-tag">Port Moresby</span>
-      <div class="gallery-caption">
-        <span class="gallery-caption-name">Port Moresby Team</span>
-        <span class="gallery-caption-role">Loan Officers</span>
-        <span class="gallery-caption-branch">Head Office</span>
-      </div>
-    </div>
 
-    <!-- BOTTOM RIGHT -->
-    <div class="gallery-thumb" data-category="office"
-         onclick="openLightbox(2)"
-         data-name="Our Office" data-role="Head Office" data-branch="Pacific Place, Port Moresby">
-      <div class="gallery-placeholder">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span>Upload photo here</span>
-        <span style="font-size:10px;color:rgba(255,255,255,0.12)">images/office/hq.jpg</span>
-      </div>
-      <!-- Replace placeholder with: <img src="images/office/hq.jpg" alt="Head Office"> -->
-      <span class="gallery-tag">Office</span>
-      <div class="gallery-caption">
-        <span class="gallery-caption-name">Head Office</span>
-        <span class="gallery-caption-role">Pacific Place</span>
-        <span class="gallery-caption-branch">Port Moresby</span>
-      </div>
-    </div>
+<!-- FEATURED RIGHT — POM -->
+<div class="gallery-featured" data-category="staff" onclick="openLightbox(1)"
+     data-name="Port Moresby Team" data-role="Loan Officers" data-branch="Port Moresby HQ">
+<img src="images/team/pomteam.png" alt="Port Moresby Team" 
+     style="width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;">
+  <span class="gallery-tag">Port Moresby</span>
+  <div class="gallery-caption">
+    <span class="gallery-caption-name">Port Moresby Team</span>
+    <span class="gallery-caption-role">Loan Officers</span>
+    <span class="gallery-caption-branch">Port Moresby HQ</span>
+  </div>
+</div>
 
   </div>
 
-  <!-- EXTRA PHOTOS ROW -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;" id="galleryRow2">
+  <!-- BOTTOM ROW: 3 equal cards -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;">
 
-    <div class="gallery-thumb" style="height:220px" data-category="staff"
-         onclick="openLightbox(3)"
-         data-name="Lae Branch Team" data-role="Loan Officers" data-branch="Lae">
-      <div class="gallery-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span>Upload photo here</span>
-        <span style="font-size:10px;color:rgba(255,255,255,0.12)">images/team/lae-team.jpg</span>
-      </div>
+    <!-- Lae Team -->
+    <div class="gallery-thumb" style="height:240px" data-category="staff" onclick="openLightbox(2)"
+         data-name="Lae Branch Team" data-role="Loan Officers" data-branch="Morobe Province">
+      <img src="images/team/laeteam.png" alt="Lae Team">
       <span class="gallery-tag">Lae</span>
       <div class="gallery-caption">
         <span class="gallery-caption-name">Lae Branch Team</span>
@@ -342,35 +179,28 @@
       </div>
     </div>
 
-    <div class="gallery-thumb" style="height:220px" data-category="community"
-         onclick="openLightbox(4)"
-         data-name="Community Day" data-role="Outreach" data-branch="Mount Hagen">
-      <div class="gallery-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span>Upload photo here</span>
-        <span style="font-size:10px;color:rgba(255,255,255,0.12)">images/community/hagen-outreach.jpg</span>
-      </div>
-      <span class="gallery-tag">Community</span>
+    <!-- Mt Hagen Team -->
+    <div class="gallery-thumb" style="height:240px" data-category="staff" onclick="openLightbox(3)"
+         data-name="Mt. Hagen Branch" data-role="Loan Officers" data-branch="Mount Hagen">
+      <img src="images/team/hagenteam.jpg" alt="Mt. Hagen Team">
+      <span class="gallery-tag">Mt. Hagen</span>
       <div class="gallery-caption">
-        <span class="gallery-caption-name">Community Day</span>
-        <span class="gallery-caption-role">Financial Literacy Outreach</span>
+        <span class="gallery-caption-name">Mt. Hagen Branch</span>
+        <span class="gallery-caption-role">Loan Officers</span>
         <span class="gallery-caption-branch">Mount Hagen</span>
       </div>
     </div>
 
-    <div class="gallery-thumb" style="height:220px" data-category="office"
-         onclick="openLightbox(5)"
-         data-name="Hagen Branch" data-role="Branch Office" data-branch="Mount Hagen">
-      <div class="gallery-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span>Upload photo here</span>
-        <span style="font-size:10px;color:rgba(255,255,255,0.12)">images/office/hagen.jpg</span>
-      </div>
-      <span class="gallery-tag">Mount Hagen</span>
+    <!-- Goroka Team -->
+    <div class="gallery-thumb" style="height:240px" data-category="staff" onclick="openLightbox(4)"
+         data-name="Goroka Branch" data-role="Loan Officer" data-branch="Goroka">
+      <img src="images/team/gorokateam.png" alt="Goroka Team" 
+     style="width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block;">
+      <span class="gallery-tag">Goroka</span>
       <div class="gallery-caption">
-        <span class="gallery-caption-name">Mount Hagen Branch</span>
-        <span class="gallery-caption-role">Branch Office</span>
-        <span class="gallery-caption-branch">Highlands Plaza</span>
+        <span class="gallery-caption-name">Goroka Branch</span>
+        <span class="gallery-caption-role">Loan Officer</span>
+        <span class="gallery-caption-branch">Centrepoint</span>
       </div>
     </div>
 
@@ -394,18 +224,17 @@
 </section>
 
 <script>
-// ── GALLERY FILTER ──
 function filterGallery(cat, btn) {
   document.querySelectorAll('.gf-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('[data-category]').forEach(el => {
-    el.style.opacity = (cat === 'all' || el.dataset.category === cat) ? '1' : '0.25';
-    el.style.pointerEvents = (cat === 'all' || el.dataset.category === cat) ? 'auto' : 'none';
+    const show = cat === 'all' || el.dataset.category === cat;
+    el.style.opacity = show ? '1' : '0.2';
+    el.style.pointerEvents = show ? 'auto' : 'none';
     el.style.transition = 'opacity .3s';
   });
 }
 
-// ── LIGHTBOX ──
 const items = Array.from(document.querySelectorAll('[data-name]'));
 let currentIdx = 0;
 
@@ -420,17 +249,10 @@ function updateLightbox() {
   const el = items[currentIdx];
   const img = el.querySelector('img');
   const lbImg = document.getElementById('lightboxImg');
-
-  if (img) {
-    lbImg.src = img.src;
-    lbImg.style.display = 'block';
-  } else {
-    lbImg.src = '';
-    lbImg.style.display = 'none';
-  }
-
-  document.getElementById('lightboxName').textContent   = el.dataset.name;
-  document.getElementById('lightboxRole').textContent   = el.dataset.role;
+  if (img) { lbImg.src = img.src; lbImg.style.display = 'block'; }
+  else { lbImg.src = ''; lbImg.style.display = 'none'; }
+  document.getElementById('lightboxName').textContent = el.dataset.name;
+  document.getElementById('lightboxRole').textContent = el.dataset.role;
   document.getElementById('lightboxBranch').textContent = el.dataset.branch;
 }
 
@@ -451,7 +273,7 @@ function closeLightboxOutside(e) {
 document.addEventListener('keydown', e => {
   if (!document.getElementById('lightbox').classList.contains('open')) return;
   if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft')  lightboxNav(-1);
+  if (e.key === 'ArrowLeft') lightboxNav(-1);
   if (e.key === 'ArrowRight') lightboxNav(1);
 });
 </script>
@@ -463,7 +285,6 @@ document.addEventListener('keydown', e => {
     <h2 class="section-title">Get Funded in<br>3 Simple Steps</h2>
     <p class="section-sub" style="margin-bottom:0">We've made the process straightforward so you can focus on what matters — your goals.</p>
   </div>
-
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
@@ -478,7 +299,7 @@ document.addEventListener('keydown', e => {
     <div class="step">
       <div class="step-num">3</div>
       <div class="step-title">Receive Funds</div>
-      <p class="step-desc">Once approved, funds are disbursed directly to your bank account or BSP account. Start achieving your goals right away.</p>
+      <p class="step-desc">Once approved, funds are disbursed directly to your bank account. Start achieving your goals right away.</p>
     </div>
   </div>
 </section>
@@ -487,45 +308,26 @@ document.addEventListener('keydown', e => {
 <section class="branches" id="branches">
   <div class="section-label">Our Branches</div>
   <h2 class="section-title">Find Us Across PNG</h2>
-  <p class="section-sub">Three conveniently located branches serving the Highlands, Momase, and the National Capital District.</p>
-
+  <p class="section-sub">Four conveniently located branches serving the Highlands, Lae, and the National Capital District.</p>
   <div class="branches-grid">
+
     <div class="branch-card">
       <div class="branch-number">01</div>
       <span class="branch-city-tag">Headquarters</span>
       <div class="branch-city">Port Moresby</div>
       <div class="branch-province">National Capital District</div>
-
       <div class="branch-detail">
-        <div class="branch-detail-icon">
-          <svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 1.5C5.01 1.5 3 3.51 3 6c0 3.75 4.5 7.5 4.5 7.5S12 9.75 12 6c0-2.49-2.01-4.5-4.5-4.5z"/><circle cx="7.5" cy="6" r="1.5"/></svg>
-        </div>
-        <div class="branch-detail-text">
-          <strong>Address</strong>
-          Level 3, Pacific Place, Musgrave Street, Port Moresby
-        </div>
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 1.5C5.01 1.5 3 3.51 3 6c0 3.75 4.5 7.5 4.5 7.5S12 9.75 12 6c0-2.49-2.01-4.5-4.5-4.5z"/><circle cx="7.5" cy="6" r="1.5"/></svg></div>
+        <div class="branch-detail-text"><strong>Address</strong>Section 38, Allotment 24 Gordons, NCD</div>
       </div>
-
       <div class="branch-detail">
-        <div class="branch-detail-icon">
-          <svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h11v9H2z"/><path d="M5 3V1.5M10 3V1.5M2 6h11"/></svg>
-        </div>
-        <div class="branch-detail-text">
-          <strong>Hours</strong>
-          Mon – Fri: 8:00am – 5:00pm · Sat: 8:00am – 12:00pm
-        </div>
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h11v9H2z"/><path d="M5 3V1.5M10 3V1.5M2 6h11"/></svg></div>
+        <div class="branch-detail-text"><strong>Hours</strong>Mon – Fri: 8:00am – 5:00pm · Sat: 8:00am – 12:00pm</div>
       </div>
-
       <div class="branch-detail">
-        <div class="branch-detail-icon">
-          <svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3.5l5.5 4 5.5-4M2 3h11v9H2z"/></svg>
-        </div>
-        <div class="branch-detail-text">
-          <strong>Contact</strong>
-          (675) 321-4567 · pom@flyingfishcapital.com.pg
-        </div>
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3.5l5.5 4 5.5-4M2 3h11v9H2z"/></svg></div>
+        <div class="branch-detail-text"><strong>Contact</strong>74251005 / 73646903 · info@flyingfishcapital.com.pg</div>
       </div>
-
       <span class="branch-tag tag-hq">★ Head Office</span>
     </div>
 
@@ -534,35 +336,17 @@ document.addEventListener('keydown', e => {
       <span class="branch-city-tag">Branch</span>
       <div class="branch-city">Lae</div>
       <div class="branch-province">Morobe Province</div>
-
       <div class="branch-detail">
-        <div class="branch-detail-icon">
-          <svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 1.5C5.01 1.5 3 3.51 3 6c0 3.75 4.5 7.5 4.5 7.5S12 9.75 12 6c0-2.49-2.01-4.5-4.5-4.5z"/><circle cx="7.5" cy="6" r="1.5"/></svg>
-        </div>
-        <div class="branch-detail-text">
-          <strong>Address</strong>
-          Shop 12, Lae City Mall, 2nd Street, Lae
-        </div>
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 1.5C5.01 1.5 3 3.51 3 6c0 3.75 4.5 7.5 4.5 7.5S12 9.75 12 6c0-2.49-2.01-4.5-4.5-4.5z"/><circle cx="7.5" cy="6" r="1.5"/></svg></div>
+        <div class="branch-detail-text"><strong>Address</strong>Lae, Morobe Province</div>
       </div>
-
       <div class="branch-detail">
-        <div class="branch-detail-icon">
-          <svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h11v9H2z"/><path d="M5 3V1.5M10 3V1.5M2 6h11"/></svg>
-        </div>
-        <div class="branch-detail-text">
-          <strong>Hours</strong>
-          Mon – Fri: 8:00am – 5:00pm · Sat: 8:00am – 12:00pm
-        </div>
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h11v9H2z"/><path d="M5 3V1.5M10 3V1.5M2 6h11"/></svg></div>
+        <div class="branch-detail-text"><strong>Hours</strong>Mon – Fri: 8:00am – 5:00pm · Sat: 8:00am – 12:00pm</div>
       </div>
-
       <div class="branch-detail">
-        <div class="branch-detail-icon">
-          <svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3.5l5.5 4 5.5-4M2 3h11v9H2z"/></svg>
-        </div>
-        <div class="branch-detail-text">
-          <strong>Contact</strong>
-          (675) 472-8910 · lae@flyingfishcapital.com.pg
-        </div>
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3.5l5.5 4 5.5-4M2 3h11v9H2z"/></svg></div>
+        <div class="branch-detail-text"><strong>Contact</strong>info@flyingfishcapital.com.pg</div>
       </div>
     </div>
 
@@ -571,37 +355,39 @@ document.addEventListener('keydown', e => {
       <span class="branch-city-tag">Branch</span>
       <div class="branch-city">Mount Hagen</div>
       <div class="branch-province">Western Highlands Province</div>
-
       <div class="branch-detail">
-        <div class="branch-detail-icon">
-          <svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 1.5C5.01 1.5 3 3.51 3 6c0 3.75 4.5 7.5 4.5 7.5S12 9.75 12 6c0-2.49-2.01-4.5-4.5-4.5z"/><circle cx="7.5" cy="6" r="1.5"/></svg>
-        </div>
-        <div class="branch-detail-text">
-          <strong>Address</strong>
-          Highlands Plaza, Okuk Highway, Mount Hagen
-        </div>
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 1.5C5.01 1.5 3 3.51 3 6c0 3.75 4.5 7.5 4.5 7.5S12 9.75 12 6c0-2.49-2.01-4.5-4.5-4.5z"/><circle cx="7.5" cy="6" r="1.5"/></svg></div>
+        <div class="branch-detail-text"><strong>Address</strong>Mount Hagen, Western Highlands</div>
       </div>
-
       <div class="branch-detail">
-        <div class="branch-detail-icon">
-          <svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h11v9H2z"/><path d="M5 3V1.5M10 3V1.5M2 6h11"/></svg>
-        </div>
-        <div class="branch-detail-text">
-          <strong>Hours</strong>
-          Mon – Fri: 8:00am – 5:00pm · Sat: 8:00am – 12:00pm
-        </div>
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h11v9H2z"/><path d="M5 3V1.5M10 3V1.5M2 6h11"/></svg></div>
+        <div class="branch-detail-text"><strong>Hours</strong>Mon – Fri: 8:00am – 5:00pm · Sat: 8:00am – 12:00pm</div>
       </div>
-
       <div class="branch-detail">
-        <div class="branch-detail-icon">
-          <svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3.5l5.5 4 5.5-4M2 3h11v9H2z"/></svg>
-        </div>
-        <div class="branch-detail-text">
-          <strong>Contact</strong>
-          (675) 542-3377 · hagen@flyingfishcapital.com.pg
-        </div>
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3.5l5.5 4 5.5-4M2 3h11v9H2z"/></svg></div>
+        <div class="branch-detail-text"><strong>Contact</strong>info@flyingfishcapital.com.pg</div>
       </div>
     </div>
+
+    <div class="branch-card">
+      <div class="branch-number">04</div>
+      <span class="branch-city-tag">Branch</span>
+      <div class="branch-city">Goroka</div>
+      <div class="branch-province">Eastern Highlands Province</div>
+      <div class="branch-detail">
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 1.5C5.01 1.5 3 3.51 3 6c0 3.75 4.5 7.5 4.5 7.5S12 9.75 12 6c0-2.49-2.01-4.5-4.5-4.5z"/><circle cx="7.5" cy="6" r="1.5"/></svg></div>
+        <div class="branch-detail-text"><strong>Address</strong>Centrepoint, Goroka</div>
+      </div>
+      <div class="branch-detail">
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h11v9H2z"/><path d="M5 3V1.5M10 3V1.5M2 6h11"/></svg></div>
+        <div class="branch-detail-text"><strong>Hours</strong>Mon – Fri: 8:00am – 5:00pm · Sat: 8:00am – 12:00pm</div>
+      </div>
+      <div class="branch-detail">
+        <div class="branch-detail-icon"><svg viewBox="0 0 15 15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"><path d="M2 3.5l5.5 4 5.5-4M2 3h11v9H2z"/></svg></div>
+        <div class="branch-detail-text"><strong>Contact</strong>info@flyingfishcapital.com.pg</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -612,72 +398,37 @@ document.addEventListener('keydown', e => {
       <div class="section-label">Eligibility</div>
       <h2 class="section-title">Who Can<br>Apply?</h2>
       <p class="section-sub">We welcome Papua New Guineans from all walks of life. Here's what you'll need.</p>
-
       <h3 style="font-size:16px;font-weight:600;color:var(--navy);margin-bottom:20px">Documents Required</h3>
       <ul class="elig-list" style="margin-bottom:40px">
-        <li>
-          <span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>
-          Valid government-issued ID (Passport, Driver's Licence, NID)
-        </li>
-        <li>
-          <span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>
-          3 months recent pay slips or income evidence
-        </li>
-        <li>
-          <span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>
-          3 months bank statement (BSP, Westpac, ANZ, Kina)
-        </li>
-        <li>
-          <span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>
-          Proof of residential address
-        </li>
-        <li>
-          <span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>
-          Collateral documentation (for secured loans)
-        </li>
+        <li><span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>Two latest pay slips</li>
+        <li><span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>Two Types of ID - Work ID/NID/N-Super</li>
+        <li><span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>Employee confirmation letter</li>
+        <li><span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>Refinance/SOA from finance companies</li>
+        <li><span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>Captured data on loan agreed deductions</li>
+        <li><span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="1" width="10" height="12" rx="1"/><path d="M5 5h4M5 7.5h4M5 10h2"/></svg></span>PVA & ISDA is signed & stamped by salary officer</li>
       </ul>
-
       <h3 style="font-size:16px;font-weight:600;color:var(--navy);margin-bottom:20px">Basic Criteria</h3>
       <ul class="elig-list">
-        <li>
-          <span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 3.5"/></svg></span>
-          PNG citizen or permanent resident, aged 18–65
-        </li>
-        <li>
-          <span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 3.5"/></svg></span>
-          Employed, self-employed, or operating a registered business
-        </li>
-        <li>
-          <span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 3.5"/></svg></span>
-          Stable income for at least 6 months
-        </li>
-        <li>
-          <span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 3.5"/></svg></span>
-          No active default or bankruptcy proceedings
-        </li>
+        <li><span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 3.5"/></svg></span>Currently employed by the PNG Government or a State-Owned Entity</li>
+        <li><span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 3.5"/></svg></span>Minimum 6 months in current government role</li>
+        <li><span class="elig-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 3.5"/></svg></span>No active default or bankruptcy proceedings</li>
       </ul>
     </div>
-
     <div>
       <div class="elig-cta-box" id="contact">
         <h3>Ready to Apply?</h3>
         <p>Visit your nearest branch or get in touch with our team. We'll walk you through the right product and have a decision for you quickly.</p>
-        <a href="mailto:loans@flyingfishcapital.com.pg" class="btn-primary">
+        <a href="mailto:info@flyingfishcapital.com.pg" class="btn-primary">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v8H2V4z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Email Our Loans Team
         </a>
         <div class="elig-cta-phone">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3h4l1.5 3.5-2 1.5a8 8 0 004 4l1.5-2L14 11.5V15A12 12 0 012 3z" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Or call us: <a href="tel:+67532145678">(675) 321-4567</a>
+          Or call us: <a href="tel:+67574251005">74251005 / 73646903</a>
         </div>
-
-        <div style="margin-top:36px; padding-top:28px; border-top:1px solid rgba(255,255,255,0.08)">
-          <div style="font-size:12px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px">Branch Emails</div>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <a href="mailto:pom@flyingfishcapital.com.pg" style="font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none">pom@flyingfishcapital.com.pg</a>
-            <a href="mailto:lae@flyingfishcapital.com.pg" style="font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none">lae@flyingfishcapital.com.pg</a>
-            <a href="mailto:hagen@flyingfishcapital.com.pg" style="font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none">hagen@flyingfishcapital.com.pg</a>
-          </div>
+        <div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+          <div style="font-size:12px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px">Email</div>
+          <a href="mailto:info@flyingfishcapital.com.pg" style="font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none">info@flyingfishcapital.com.pg</a>
         </div>
       </div>
     </div>
@@ -692,27 +443,20 @@ document.addEventListener('keydown', e => {
         <img src="images/ffclogo.png" style="height:40px;width:auto;">
         <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white">Flying Fish Capital</span>
       </div>
-      <p>Empowering Papua New Guineans with accessible, transparent, and responsible lending solutions since 2012.</p>
+      <p>Empowering Papua New Guineans with accessible, transparent, and responsible lending solutions.</p>
       <span class="footer-domain">flyingfishcapital.com.pg</span>
     </div>
-
     <div class="footer-col">
       <h4>Products</h4>
-      <ul>
-        <li><a href="#products">Personal Loans</a></li>
-      </ul>
+      <ul><li><a href="apply.html">Personal Loans</a></li></ul>
     </div>
-
     <div class="footer-col">
       <h4>Company</h4>
       <ul>
-        <li><a href="#">About Us</a></li>
+        <li><a href="#about">Our People</a></li>
         <li><a href="#branches">Our Branches</a></li>
-        <li><a href="#">Careers</a></li>
-        <li><a href="#">News</a></li>
       </ul>
     </div>
-
     <div class="footer-col">
       <h4>Help</h4>
       <ul>
@@ -723,10 +467,9 @@ document.addEventListener('keydown', e => {
       </ul>
     </div>
   </div>
-
   <div class="footer-bottom">
     <p>© 2025 Flying Fish Capital Limited. All rights reserved.</p>
-    <p class="footer-reg">Registered and regulated under the Bank of Papua New Guinea — Licence No. FLC-2012-04</p>
+    <p class="footer-reg">Registered and regulated under the Bank of Papua New Guinea</p>
   </div>
 </footer>
 
