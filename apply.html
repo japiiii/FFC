@@ -540,9 +540,13 @@
               <label>Preferred Branch <span class="req">*</span></label>
               <select id="branch" required>
                 <option value="">Select a branch…</option>
+                <!-- Option text must match a Branch label in FFC-System exactly,
+                     or the application files with no branch and branch agents
+                     never see it. -->
                 <option>Port Moresby (Head Office)</option>
                 <option>Lae</option>
                 <option>Mount Hagen</option>
+                <option>Goroka</option>
               </select>
             </div>
           </div>
@@ -668,16 +672,34 @@
 
 <script>
 // ════════════════════════════════════════════════════════════
-// POWER AUTOMATE INTEGRATION
-// Replace this URL with your actual Power Automate HTTP trigger URL
-// Steps: Power Automate → New Flow → "When an HTTP request is received"
-//        → Copy the POST URL → paste it below
+// FFC-SYSTEM LOAN APPLICATION INTAKE
+//
+// Applications post straight into FFC-System. This replaced a Make.com
+// webhook that wrote into a SharePoint list (retired 2026-08-27).
+//
+// The token below is NOT a secret — anything in browser JavaScript is
+// readable by anyone who views source. It is a light gate that keeps
+// casual bots and stray traffic out. Real abuse protection is the rate
+// limit on the server (6/min, 40/hour per IP). Never put a token here
+// that grants access to anything beyond submitting an application.
 // ════════════════════════════════════════════════════════════
-const POWER_AUTOMATE_URL = "https://hook.us2.make.com/25t86sfu14ml88td7uj7f7nz68mttsdm";
+const INTAKE_URL   = "https://system.flyingfishcapital.com.pg/api/loan-applications";
+const INTAKE_TOKEN = "CC28miCLSqUyB9ne795uHS3qMYALaKT";
 
-// Reference number generator
+const SUPPORT_PHONE = "(675) 321-4567";
+
+// A client-side reference sent as `referenceNumber`, stored by FFC-System as
+// external_reference. It is NOT what we show the applicant — FFC-System issues
+// its own reference, and that is the only one staff can search on.
 function genRef() {
   return 'FFC-' + Math.floor(100000 + Math.random() * 900000);
+}
+
+// Turn the server's validation errors into one readable line.
+function describeErrors(errors) {
+  if (!errors) return '';
+  const messages = Object.values(errors).flat();
+  return messages.length ? messages.join(' ') : '';
 }
 
 // Form submit
@@ -716,7 +738,9 @@ document.getElementById('loanForm').addEventListener('submit', async function(e)
 
   const refNumber = genRef();
 
-  // Build payload — this is what flows into SharePoint / Dataverse
+  // Build payload — field names must stay exactly as they are; FFC-System's
+  // intake endpoint was built to accept these verbatim. `status` is sent for
+  // historical reasons and is ignored server-side (FFC-System sets its own).
   const payload = {
     referenceNumber:  refNumber,
     loanType:         document.getElementById('loanType').value,
@@ -745,24 +769,59 @@ document.getElementById('loanForm').addEventListener('submit', async function(e)
   };
 
   // Show loading
-  document.getElementById('loadingOverlay').classList.add('active');
-  document.getElementById('submitBtn').disabled = true;
+  const overlay = document.getElementById('loadingOverlay');
+  const submitBtn = document.getElementById('submitBtn');
+  overlay.classList.add('active');
+  submitBtn.disabled = true;
 
-  // Fire and forget — ignore CORS/response errors
-  if (POWER_AUTOMATE_URL !== "YOUR_POWER_AUTOMATE_HTTP_TRIGGER_URL_HERE") {
-    fetch(POWER_AUTOMATE_URL, {
+  const fail = (message) => {
+    overlay.classList.remove('active');
+    submitBtn.disabled = false;
+    errEl.innerHTML = message;
+    errEl.style.display = 'block';
+    errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  // Wait for the real answer. The old pipeline fired and forgot, so an
+  // applicant saw "Submitted!" even when nothing had been recorded.
+  let response;
+  try {
+    response = await fetch(INTAKE_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-Intake-Token': INTAKE_TOKEN
+      },
       body: JSON.stringify(payload)
-    }).catch(() => {});
-  } else {
-    console.log('Demo mode — payload:', payload);
+    });
+  } catch (networkError) {
+    fail('We could not reach Flying Fish Capital just now — please check your connection and try again, '
+       + 'or call us on <a href="tel:+67532145678">' + SUPPORT_PHONE + '</a>.');
+    return;
   }
 
-  // Always show success modal
-  await new Promise(r => setTimeout(r, 1500));
-  document.getElementById('loadingOverlay').classList.remove('active');
-  document.getElementById('modalRefNumber').textContent = refNumber;
+  let body = null;
+  try { body = await response.json(); } catch (e) { /* non-JSON error page */ }
+
+  if (!response.ok || !body || body.success !== true) {
+    if (response.status === 422) {
+      const detail = describeErrors(body && body.errors);
+      fail('Please check your details and try again. ' + detail);
+    } else if (response.status === 429) {
+      fail('Too many attempts from this connection. Please wait a minute and try again, '
+         + 'or call us on <a href="tel:+67532145678">' + SUPPORT_PHONE + '</a>.');
+    } else {
+      fail('Something went wrong submitting your application and it has not been received. '
+         + 'Please try again, or call us on <a href="tel:+67532145678">' + SUPPORT_PHONE + '</a>.');
+    }
+    return;
+  }
+
+  // Show the reference FFC-System issued, not the one generated above —
+  // this is the number staff can actually look up.
+  overlay.classList.remove('active');
+  document.getElementById('modalRefNumber').textContent = body.referenceNumber;
   document.getElementById('successModal').classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
